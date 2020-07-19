@@ -96,8 +96,12 @@ def find_movies_by_studio
 end
   
 def show_all_movies
-  Movie.all.each_with_index do |movie, index|
-    puts "#{index + 1} Title: #{movie.title} | Director: #{movie.director.name} | Studio: #{movie.studio.name} | Rating: #{movie.rating}"
+  if Movie.all.count > 0
+    Movie.all.each_with_index do |movie, index|
+      puts "#{index + 1} Title: #{movie.title} | Director: #{movie.director.name} | Studio: #{movie.studio.name} | Rating: #{movie.rating}"
+    end
+  else
+    puts "There is no movie in the list yet."
   end
   continue
 end
