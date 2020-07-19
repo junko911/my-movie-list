@@ -27,7 +27,6 @@ class Director
   end
 
   def average_rating
-    # binding.pry
     sum = 0
     sum_of_rating = movies.each { |movie| sum += movie.rating }
     avg = sum.to_f / movies.count.to_f

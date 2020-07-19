@@ -23,4 +23,11 @@ class Studio
       Studio.new(passed_name)
     end
   end
+
+  def average_rating
+    sum = 0
+    sum_of_rating = movies.each { |movie| sum += movie.rating }
+    avg = sum.to_f / movies.count.to_f
+    avg.round(2)
+  end
 end
