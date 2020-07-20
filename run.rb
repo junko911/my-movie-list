@@ -23,24 +23,35 @@ def invalid_input
   continue
 end
   
+
+def movie_exist?(input)
+  Movie.all.map(&:title).include? input
+end
+
 def add_new_movie
   puts "What is the title of the movie?"
   movie_title = gets.chomp
+
+  if movie_exist?(movie_title)
+    puts "#{movie_title} is already in the list."
+    continue
+  else
   
-  puts "Who is the director?"
-  director_name = gets.chomp
-  new_director = Director.find_director_by_name_or_create_new(director_name)
-  
-  puts "Which studio?"
-  studio_name = gets.chomp
-  new_studio = Studio.find_studio_by_name_or_create_new(studio_name)
-  
-  puts "How do you rate the movie? 1-5?"
-  rating = gets.chomp.to_i
-  
-  Movie.new(movie_title, new_director, new_studio, rating)
-  puts "#{movie_title} is added to your list."
-  continue
+    puts "Who is the director?"
+    director_name = gets.chomp
+    new_director = Director.find_director_by_name_or_create_new(director_name)
+    
+    puts "Which studio?"
+    studio_name = gets.chomp
+    new_studio = Studio.find_studio_by_name_or_create_new(studio_name)
+    
+    puts "How do you rate the movie? 1-5?"
+    rating = gets.chomp.to_i
+    
+    Movie.new(movie_title, new_director, new_studio, rating)
+    puts "#{movie_title} is added to your list."
+    continue
+  end
 end
   
 
