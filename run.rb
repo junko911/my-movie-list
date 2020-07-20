@@ -104,6 +104,23 @@ def find_movies_by_studio
     continue
   end
 end
+
+def find_movies_by_rating
+  puts "What is the rating do you want to lookup?"
+  input = gets.chomp.to_i
+  rated_movies = Movie.all.select { |movie| movie.rating == input }
+  
+  if rated_movies.count > 0
+    rated_movies.each_with_index do |movie, index|
+      puts "#{index + 1} Title: #{movie.title} | Director: #{movie.director.name} | Studio: #{movie.studio.name}"
+    end
+    continue
+  else
+    puts "There is no movie with the rating #{input}."
+    continue
+  end
+    
+end
   
 def show_all_movies
   if Movie.all.count > 0
@@ -117,7 +134,7 @@ def show_all_movies
 end
 
 def find_movies
-  puts "How do you want to look up the movie?\n1. By title\n2. By director\n3. By studio\n4. Show all the movies in the list"
+  puts "How do you want to look up the movie?\n1. By title\n2. By director\n3. By studio\n4. By rating\n5. Show all the movies in the list"
   input = gets.chomp.to_i
   
   if input == 1
@@ -127,6 +144,8 @@ def find_movies
   elsif input == 3
     find_movies_by_studio
   elsif input == 4
+    find_movies_by_rating
+  elsif input == 5
     show_all_movies
   else
     invalid_input
