@@ -1,5 +1,3 @@
-require 'pry'
-
 class Director
   attr_reader :name
   @@all = []
@@ -15,10 +13,6 @@ class Director
 
   def movies
     Movie.all.select { |movie| movie.director == self }
-  end
-
-  def studios
-    movies.map(&:studio).uniq
   end
 
   def self.find_director_by_name_or_create_new(passed_name)
@@ -37,5 +31,3 @@ class Director
     avg.round(2)
   end
 end
-
-binding.pry
