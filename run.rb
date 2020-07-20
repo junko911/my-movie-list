@@ -1,4 +1,3 @@
-require 'pry'
 require_relative './app/models/director'
 require_relative './app/models/movie'
 require_relative './app/models/studio'
@@ -118,6 +117,8 @@ def find_movies
     find_movies_by_studio
   elsif input == 4
     show_all_movies
+  else
+    invalid_input
   end
 
 end

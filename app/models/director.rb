@@ -17,6 +17,10 @@ class Director
     Movie.all.select { |movie| movie.director == self }
   end
 
+  def studios
+    movies.map(&:studio).uniq
+  end
+
   def self.find_director_by_name_or_create_new(passed_name)
     found_director = all.find { |director| director.name == passed_name}
     if found_director
@@ -33,3 +37,5 @@ class Director
     avg.round(2)
   end
 end
+
+binding.pry
