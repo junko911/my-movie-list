@@ -10,6 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_07_24_013023) do
+
+  create_table "directors", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "title"
+    t.integer "director_id"
+    t.integer "studio_id"
+    t.integer "rating"
+  end
+
+  create_table "studios", force: :cascade do |t|
+    t.string "name"
+  end
 
 end

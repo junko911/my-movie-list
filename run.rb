@@ -1,6 +1,14 @@
-require_relative './app/models/director'
-require_relative './app/models/movie'
-require_relative './app/models/studio'
+require 'bundler/setup'
+Bundler.require
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: "db/development.sqlite3"
+)
+
+ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+require_all 'app'
 
 def continue
   puts "What do you want to do next?\n1. Add a new movie\n2. Find existing movies\n3. Exit from the app"
@@ -24,31 +32,33 @@ def invalid_input
 end
   
 
-def movie_exist?(input)
-  Movie.all.map(&:title).include? input
-end
+# def movie_exist?(input)
+#   Movie.all.map(&:title).include? input
+# end
 
 def add_new_movie
   puts "What is the title of the movie?"
   movie_title = gets.chomp
 
-  if movie_exist?(movie_title)
+  # if movie_exist?(movie_title)
+  if Movie.find_by(title: movie_title)
     puts "#{movie_title} is already in the list."
     continue
   else
   
     puts "Who is the director?"
     director_name = gets.chomp
-    new_director = Director.find_director_by_name_or_create_new(director_name)
+    new_director = Director.find_or_create_by(name: director_name)
     
     puts "Which studio?"
     studio_name = gets.chomp
-    new_studio = Studio.find_studio_by_name_or_create_new(studio_name)
+    # new_studio = Studio.find_studio_by_name_or_create_new(studio_name)
+    new_studio = Studio.find_or_create_by(name: studio_name)
     
     puts "How do you rate the movie? 1-5?"
     rating = gets.chomp.to_i
     
-    Movie.new(movie_title, new_director, new_studio, rating)
+    Movie.create(title: movie_title, director: new_director, studio: new_studio, rating: rating)
     puts "#{movie_title} is added to your list."
     continue
   end
